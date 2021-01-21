@@ -41,7 +41,7 @@ pipeline {
                     steps {
                         sh 'echo 2'
                         sh 'echo $BROWSER'
-                        sh 'mvn -Dtest=AppTest#shouldAnswerWithTrue test'
+                        sh 'mvn -Dtest=LoginTest#testLoginSuccessful test'
                         echo firefox
                     }
                     post {
