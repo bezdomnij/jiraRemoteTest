@@ -8,6 +8,7 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class CreateIssuePage {
@@ -24,7 +25,7 @@ public class CreateIssuePage {
     @FindBy(xpath = "//input[@id='project-field']")
     private WebElement dropDown;
 
-    public CreateIssuePage() {
+    public CreateIssuePage() throws MalformedURLException {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 

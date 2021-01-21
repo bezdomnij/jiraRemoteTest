@@ -11,15 +11,16 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 
-public class LoginPage {
+public class LoginPage{
     WebDriver driver = WebDriverSingleton.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
-    public LoginPage() {
+    public LoginPage() throws MalformedURLException {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
 

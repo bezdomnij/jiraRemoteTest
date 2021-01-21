@@ -8,6 +8,7 @@ import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
 import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
@@ -15,7 +16,7 @@ public class DashBoardPage {
     WebDriver driver = WebDriverSingleton.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
-    public DashBoardPage() {
+    public DashBoardPage() throws MalformedURLException {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 
@@ -66,7 +67,7 @@ public class DashBoardPage {
         return logout.isDisplayed();
     }
 
-    public String checkUserName() {
+    public String checkUserName() throws MalformedURLException {
         WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOf(userIcon));
         userIcon.click();

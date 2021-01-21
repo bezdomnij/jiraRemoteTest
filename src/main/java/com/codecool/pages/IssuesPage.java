@@ -10,6 +10,7 @@ import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class IssuesPage {
@@ -34,7 +35,7 @@ public class IssuesPage {
     @FindBy(xpath = "//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")
     private WebElement popUpMessageClose;
 
-    public IssuesPage() {
+    public IssuesPage() throws MalformedURLException {
         PageFactory.initElements(driver, this);
     }
 

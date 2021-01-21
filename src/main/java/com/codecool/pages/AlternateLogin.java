@@ -6,8 +6,10 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
+import java.net.MalformedURLException;
+
 public class AlternateLogin {
-    public AlternateLogin() {
+    public AlternateLogin() throws MalformedURLException {
         PageFactory.initElements(driver, this);
 //        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
     }
