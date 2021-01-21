@@ -10,18 +10,32 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebElement;
 
+import java.net.MalformedURLException;
+
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest {
     private LoginPage loginPage = new LoginPage();
-    private static final DashBoardPage dashBoardPage =  new DashBoardPage();
+    private static DashBoardPage dashBoardPage = null;
+
+    static {
+        try {
+            dashBoardPage = new DashBoardPage();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     private AlternateLogin alternateLogin = new AlternateLogin();
     private CreateIssuePage createIssuePage = new CreateIssuePage();
 
+    public LoginTest() throws MalformedURLException {
+    }
+
     @ParameterizedTest
     @CsvSource({"User 10"})
-    public void testLoginSuccessful(String userId) {
+    public void testLoginSuccessful(String userId) throws MalformedURLException {
         loginPage.loginSuccessful();
         boolean isLogOutPresent = dashBoardPage.checkLogout();
         String userName = dashBoardPage.checkUserName();
@@ -49,7 +63,7 @@ public class LoginTest {
 
     @ParameterizedTest
     @CsvSource({"User 10"})
-    public void testAlternateLoginSuccessful(String userId) {
+    public void testAlternateLoginSuccessful(String userId) throws MalformedURLException {
         alternateLogin.loginSuccessfulAlternateLoginPage();
         boolean isLogOutPresent = dashBoardPage.checkLogout();
         String userName = dashBoardPage.checkUserName();

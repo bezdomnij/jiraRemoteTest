@@ -13,6 +13,7 @@ import org.openqa.selenium.WebElement;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -21,11 +22,23 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
 
-    static LoginPage loginPage = new LoginPage();
+    static LoginPage loginPage;
+
+    static {
+        try {
+            loginPage = new LoginPage();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
     DashBoardPage dashBoardPage = new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
     IssuesPage issuesPage = new IssuesPage();
     CreateIssuePage createIssuePage = new CreateIssuePage();
+
+    public AppTest() throws MalformedURLException {
+    }
 
     @BeforeAll
     public static void login(){
