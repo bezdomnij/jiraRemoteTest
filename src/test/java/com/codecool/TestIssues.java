@@ -11,6 +11,7 @@ import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.MethodSource;
 
+import java.net.MalformedURLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -19,10 +20,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class TestIssues {
-    private static final LoginPage loginPage = new LoginPage();
-    private static final DashBoardPage dashBoardPage = new DashBoardPage();
-//    private final CreateIssuePage createIssuePage = new CreateIssuePage();
+    private static LoginPage loginPage;
+
+    static {
+        try {
+            loginPage = new LoginPage();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static DashBoardPage dashBoardPage;
+
+    static {
+        try {
+            dashBoardPage = new DashBoardPage();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    //    private final CreateIssuePage createIssuePage = new CreateIssuePage();
     private final IssuesPage issuesPage = new IssuesPage();
+
+    public TestIssues() throws MalformedURLException {
+    }
 
     @BeforeAll
     public static void login() {
