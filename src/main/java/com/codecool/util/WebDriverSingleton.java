@@ -1,20 +1,35 @@
 package com.codecool.util;
 
-import io.github.bonigarcia.wdm.config.DriverManagerType;
-import io.github.bonigarcia.wdm.managers.ChromeDriverManager;
+import org.openqa.selenium.MutableCapabilities;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.RemoteWebDriver;
+
+import java.net.MalformedURLException;
+import java.net.URL;
 
 public class WebDriverSingleton {
+
+    public static MutableCapabilities setUp() throws MalformedURLException {
+        MutableCapabilities capabilities;
+        if (System.getenv("STAGE_NAME").equals("run with chrome")) {
+            capabilities = new ChromeOptions();
+        } else {
+            capabilities = new FirefoxOptions();
+        }
+        return capabilities;
+    }
+
     public static WebDriver instance = null;
 
-    private WebDriverSingleton() { }
+    private WebDriverSingleton() throws MalformedURLException {
+    }
 
-    public static WebDriver getInstance(){
-        if (instance == null){
-            ChromeDriverManager.getInstance(DriverManagerType.CHROME).setup();
-            instance = new ChromeDriver();
-            instance.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
+    public static WebDriver getInstance() throws MalformedURLException {
+        if (instance == null) {
+            String nodeUrl = "https://selenium:CoolCanvas19.@seleniumhub.codecool.codecanvas.hu/wd/hub";
+            WebDriver instance = new RemoteWebDriver(new URL(nodeUrl), setUp());
         }
         return instance;
     }
