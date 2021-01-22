@@ -20,10 +20,9 @@ public class LoginPage{
     WebDriver driver = WebDriverSingleton.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
-    public LoginPage() throws MalformedURLException {
+    public LoginPage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
     }
-
 
     @FindBy(id = "login-form-username")
     private WebElement username;
@@ -48,13 +47,8 @@ public class LoginPage{
         driver.manage().window().maximize();
         try {
             wait.until(ExpectedConditions.visibilityOf(username));
-            username.sendKeys(System.getenv("JIRAUSERNAME"));
-            password.sendKeys(System.getenv("JIRAPASSWORD"));
-          /*try {
-            loginButton.click();
-        }catch (Exception e){
-            driver.findElement(By.id("login"));
-        }*/
+            username.sendKeys(System.getenv("JIRA_USERNAME"));
+            password.sendKeys(System.getenv("JIRA_PASSWORD"));
             loginButton.click();
         } catch (Exception e ) {
             System.out.println("I'm in already");
@@ -67,10 +61,10 @@ public class LoginPage{
         driver.manage().window().maximize();
         if (reason.equals("wrongUsername")) {
             username.sendKeys("wrongUsername");
-            password.sendKeys(System.getenv("JIRAPASSWORD"));
+            password.sendKeys(System.getenv("JIRA_PASSWORD"));
         } else {
             Thread.sleep(3000);
-            username.sendKeys(System.getenv("JIRAUSERNAME"));
+            username.sendKeys(System.getenv("JIRA_USERNAME"));
             password.sendKeys("wrongPassword");
         }
         loginButton.click();
@@ -82,7 +76,7 @@ public class LoginPage{
     public WebElement loginWrongPassword3Times() throws InterruptedException {
         for (int i = 0; i < 3; i++) {
             Thread.sleep(1000);
-            username.sendKeys(System.getenv("USERNAME"));
+            username.sendKeys(System.getenv("JIRA_USERNAME"));
             password.sendKeys("wrongPassword");
             loginButton.click();
         }

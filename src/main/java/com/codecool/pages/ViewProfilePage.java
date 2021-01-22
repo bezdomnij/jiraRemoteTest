@@ -11,7 +11,7 @@ import java.net.MalformedURLException;
 public class ViewProfilePage {
     WebDriver driver = WebDriverSingleton.getInstance();
 
-    public ViewProfilePage() throws MalformedURLException {
+    public ViewProfilePage() {
         PageFactory.initElements(driver, this);
         driver.navigate().to("https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa");
     }

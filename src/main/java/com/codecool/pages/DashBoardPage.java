@@ -95,6 +95,10 @@ public class DashBoardPage {
         return logoutConfirmation;
     }
 
+    public void quit() {
+        driver.quit();
+    }
+
     public String browseProject(String projectName){
         String xpathTerm = String.format("//a[starts-with(@title,'%s')]", projectName);
         browseLink.click();

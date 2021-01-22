@@ -23,11 +23,7 @@ public class TestIssues {
     private static LoginPage loginPage;
 
     static {
-        try {
-            loginPage = new LoginPage();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        loginPage = new LoginPage();
     }
 
     private static DashBoardPage dashBoardPage;
@@ -87,5 +83,6 @@ public class TestIssues {
     @AfterAll
     static void endGame() {
         dashBoardPage.logout();
+        dashBoardPage.quit();
     }
 }

@@ -16,8 +16,22 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class LoginTest {
-    private LoginPage loginPage = new LoginPage();
+    private static final LoginPage loginPage;
+
+    static {
+        loginPage = new LoginPage();
+    }
+
     private static DashBoardPage dashBoardPage = null;
+
+    static {
+        try {
+            dashBoardPage = new DashBoardPage();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+    }
+//    private static DashBoardPage dashBoardPage;
 
     static {
         try {
@@ -73,6 +87,7 @@ public class LoginTest {
     @AfterAll
     public static void backToBase() {
         dashBoardPage.logout();
+        dashBoardPage.quit();
     }
 }
 

@@ -1,6 +1,7 @@
 package com.codecool;
 
 import com.codecool.pages.*;
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
 
@@ -23,16 +24,18 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class AppTest {
 
     static LoginPage loginPage;
+    private static DashBoardPage dashBoardPage;
 
     static {
+        loginPage = new LoginPage();
         try {
-            loginPage = new LoginPage();
+            dashBoardPage = new DashBoardPage();
         } catch (MalformedURLException e) {
             e.printStackTrace();
         }
     }
 
-    DashBoardPage dashBoardPage = new DashBoardPage();
+//    DashBoardPage dashBoardPage = new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
     IssuesPage issuesPage = new IssuesPage();
     CreateIssuePage createIssuePage = new CreateIssuePage();
@@ -112,5 +115,11 @@ public class AppTest {
             }
         }
         return argumentsList;
+    }
+
+    @AfterAll
+    static void endGame() {
+        dashBoardPage.logout();
+        dashBoardPage.quit();
     }
 }
