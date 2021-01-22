@@ -11,7 +11,7 @@ import java.net.URL;
 
 public class WebDriverSingleton {
 
-    public static MutableCapabilities setUp() throws MalformedURLException {
+    public static MutableCapabilities setUp() {
         MutableCapabilities capabilities;
         if (System.getenv("STAGE_NAME").equals("run with chrome")) {
             capabilities = new ChromeOptions();
@@ -23,13 +23,17 @@ public class WebDriverSingleton {
 
     public static WebDriver instance = null;
 
-    private WebDriverSingleton() throws MalformedURLException {
+    private WebDriverSingleton() {
     }
 
-    public static WebDriver getInstance() throws MalformedURLException {
+    public static WebDriver getInstance(){
         if (instance == null) {
-            String nodeUrl = "https://selenium:CoolCanvas19.@seleniumhub.codecool.codecanvas.hu/wd/hub";
-            WebDriver instance = new RemoteWebDriver(new URL(nodeUrl), setUp());
+            String nodeUrl = "";
+            try {
+                instance = new RemoteWebDriver(new URL(nodeUrl), setUp());
+            } catch (MalformedURLException e) {
+                e.printStackTrace();
+            }
         }
         return instance;
     }
