@@ -28,7 +28,7 @@ public class WebDriverSingleton {
 
     public static WebDriver getInstance(){
         if (instance == null) {
-            String nodeUrl = "";
+            String nodeUrl = "https://selenium:CoolCanvas19.@seleniumhub.codecool.codecanvas.hu/wd/hub";
             try {
                 instance = new RemoteWebDriver(new URL(nodeUrl), setUp());
             } catch (MalformedURLException e) {
