@@ -27,7 +27,7 @@ pipeline {
                                credentialsId: 'jiraUser10',
                                passwordVariable: 'pass',
                                usernameVariable: 'username')]) {
-                                    echo 'Test phase with chrome: '
+                                    echo 'WITH CHROME: '
                                     sh 'echo $STAGE_NAME'
                                     sh 'echo $BROWSER'
                                     sh "mvn test -Dtest=LoginTest -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
