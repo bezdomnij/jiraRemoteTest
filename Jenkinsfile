@@ -1,53 +1,62 @@
 pipeline {
     agent any
     parameters {
-            string(name: 'BROWSER', defaultValue: 'both', description: 'Browsers to run: Both, Chrome, Firefox')
-            string(name: 'chrome', defaultValue: 'chrome', description: 'Chrome browser')
-            string(name: 'firefox', defaultValue: 'firefox', description: 'Firefox browser')
-            }
-
+                string(name: 'browserToRun', defaultValue: 'both', description: 'Browsers to run: Both, Chrome, Firefox')
+                string(name: 'chrome', defaultValue: 'chrome', description: 'Chrome browser')
+                string(name: 'firefox', defaultValue: 'firefox', description: 'Firefox browser')
+    }
     stages {
         stage('Build') {
             steps {
-                echo 'Build phase: '
                 sh 'mvn clean'
             }
         }
-        stage('Test') {
+
+        stage('Parallel tests') {
             parallel {
                 stage('run with chrome') {
-                   when {
-                        expression { params.BROWSER == 'both' || params.BROWSER == 'chrome' }
-                    }
+                    when {
+                         expression { params.browserToRun == 'both' || params.browserToRun == 'chrome' }
+                         }
                     steps {
-
-                        sh 'echo 1'
-                        sh 'echo $BROWSER'
-                        sh 'mvn -Dtest=LoginTest#testLoginSuccessful test'
-                        echo chrome
-
+                         script {withCredentials([
+                               usernamePassword(
+                               credentialsId: 'jiraUser10',
+                               passwordVariable: 'pass',
+                               usernameVariable: 'username')]) {
+                                    echo 'Test phase with chrome: '
+                                    sh "mvn test -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
+                               }
+                         }
                     }
                     post {
                         always {
-                            junit 'target/surefire-reports/*.xml'
-                                            }
-                                        }
-
+                            junit allowEmptyResults: true,
+                            testResults: 'target/surefire-reports/*.xml'
+                        }
+                    }
                 }
                 stage('run with firefox') {
-                   when {
-                        expression { params.BROWSER == 'both' || params.BROWSER == 'firefox' }
-                    }
+                    when {
+                         expression { params.browserToRun == 'both' || params.browserToRun == 'firefox' }
+                         }
                     steps {
-                        sh 'echo 2'
-                        sh 'echo $BROWSER'
-                        sh 'mvn -Dtest=LoginTest#testLoginSuccessful test'
-                        echo firefox
+                         script {withCredentials([
+                               usernamePassword(
+                               credentialsId: 'jiraUser10',
+                               passwordVariable: 'pass',
+                               usernameVariable: 'username')]) {
+                                    echo 'Test phase with chrome: '
+                                    sh "mvn test -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
+                               }
+                         }
                     }
                     post {
-                          always {
-                          junit 'target/surefire-reports/*.xml'}
-                                        }
+                        always {
+                            junit allowEmptyResults: true,
+                            testResults: 'target/surefire-reports/*.xml'
+                        }
+                    }
                 }
             }
         }
