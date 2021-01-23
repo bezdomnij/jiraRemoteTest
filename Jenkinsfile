@@ -29,6 +29,7 @@ pipeline {
                                usernameVariable: 'username')]) {
                                     echo 'Test phase with chrome: '
                                     sh 'echo $STAGE_NAME'
+                                    sh 'echo $Dsel_pw'
                                     sh "mvn test -Dtest=LoginTest -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
                                }
                          }
