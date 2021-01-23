@@ -13,7 +13,7 @@ public class WebDriverSingleton {
 
     public static MutableCapabilities setUp() {
         MutableCapabilities capabilities;
-        if (System.getenv("STAGE_NAME").equals("run with chrome")) {
+        if (System.getenv("BROWSER").equals("chrome")) {
             capabilities = new ChromeOptions();
         } else {
             capabilities = new FirefoxOptions();

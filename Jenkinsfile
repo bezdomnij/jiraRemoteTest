@@ -16,11 +16,11 @@ pipeline {
             parallel {
                 stage('run with chrome') {
                     environment {
-                        STAGE_NAME='run with chrome'
+                        BROWSER="chrome"
                     }
-                    when {
-                         expression { params.browserToRun == 'both' || params.browserToRun == 'chrome' }
-                         }
+//                     when {
+//                          expression { params.browserToRun == 'both' || params.browserToRun == 'chrome' }
+//                          }
                     steps {
                          script {withCredentials([
                                usernamePassword(
@@ -43,11 +43,11 @@ pipeline {
                 }
                 stage('run with firefox') {
                     environment {
-                        STAGE_NAME='run with firefox'
+                        BROWSER="firefox"
                     }
-                    when {
-                         expression { params.browserToRun == 'both' || params.browserToRun == 'firefox' }
-                         }
+//                     when {
+//                          expression { params.browserToRun == 'both' || params.browserToRun == 'firefox' }
+//                          }
                     steps {
                          script {withCredentials([
                                usernamePassword(
