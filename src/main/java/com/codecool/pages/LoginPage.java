@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 
-public class LoginPage{
+public class LoginPage {
     WebDriver driver = WebDriverSingleton.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
@@ -30,7 +30,7 @@ public class LoginPage{
     @FindBy(id = "login-form-password")
     private WebElement password;
 
-//    @FindBy(id = "login-form-submit")
+    //    @FindBy(id = "login-form-submit")
     @FindBy(id = "login")
     private WebElement loginButton;
 
@@ -47,10 +47,10 @@ public class LoginPage{
         driver.manage().window().maximize();
         try {
             wait.until(ExpectedConditions.visibilityOf(username));
-            username.sendKeys(System.getenv("JIRAUSERNAME"));
-            password.sendKeys(System.getenv("JIRAPASSWORD"));
+            username.sendKeys(System.getProperty("JIRAUSERNAME"));
+            password.sendKeys(System.getProperty("JIRAPASSWORD"));
             loginButton.click();
-        } catch (Exception e ) {
+        } catch (Exception e) {
             System.out.println("I'm in already");
         }
 
@@ -61,10 +61,10 @@ public class LoginPage{
         driver.manage().window().maximize();
         if (reason.equals("wrongUsername")) {
             username.sendKeys("wrongUsername");
-            password.sendKeys(System.getenv("JIRAPASSWORD"));
+            password.sendKeys(System.getProperty("JIRAPASSWORD"));
         } else {
             Thread.sleep(3000);
-            username.sendKeys(System.getenv("JIRAUSERNAME"));
+            username.sendKeys(System.getProperty("JIRAUSERNAME"));
             password.sendKeys("wrongPassword");
         }
         loginButton.click();
@@ -76,7 +76,7 @@ public class LoginPage{
     public WebElement loginWrongPassword3Times() throws InterruptedException {
         for (int i = 0; i < 3; i++) {
             Thread.sleep(1000);
-            username.sendKeys(System.getenv("JIRAUSERNAME"));
+            username.sendKeys(System.getProperty("JIRAUSERNAME"));
             password.sendKeys("wrongPassword");
             loginButton.click();
         }

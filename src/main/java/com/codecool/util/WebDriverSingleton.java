@@ -13,7 +13,7 @@ public class WebDriverSingleton {
 
     public static MutableCapabilities setUp() {
         MutableCapabilities capabilities;
-        if (System.getenv("STAGE_NAME").equals("run with chrome")) {
+        if (System.getenv("BROWSER").equals("chrome")) {
             capabilities = new ChromeOptions();
         } else {
             capabilities = new FirefoxOptions();
@@ -28,7 +28,7 @@ public class WebDriverSingleton {
 
     public static WebDriver getInstance(){
         if (instance == null) {
-            String selPw = System.getenv("SEL_PW");
+            String selPw = System.getProperty("SEL_PW");
             String beginning = "https://selenium:";
             String end = "@seleniumhub.codecool.codecanvas.hu/wd/hub";
             String nodeUrl = beginning + selPw + end;

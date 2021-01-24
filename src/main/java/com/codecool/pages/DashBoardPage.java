@@ -20,13 +20,13 @@ public class DashBoardPage {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 
-    @FindBy(xpath="//img[starts-with(@alt, 'User profile')]")
+    @FindBy(xpath = "//img[starts-with(@alt, 'User profile')]")
     private WebElement userIcon;
 
-    @FindBy(id="log_out")
+    @FindBy(id = "log_out")
     private WebElement logout;
 
-    @FindBy(id="view_profile")
+    @FindBy(id = "view_profile")
     private WebElement userProfile;
 
     @FindBy(xpath = "//h1[contains(text(),'Logout')]")
@@ -44,13 +44,13 @@ public class DashBoardPage {
     @FindBy(id = "create_link")
     private WebElement createIssue;
 
-    @FindBy(id="find_link")
+    @FindBy(id = "find_link")
     private WebElement issuesButton;
 
-    @FindBy(id="filter_lnk_reported_lnk")
+    @FindBy(id = "filter_lnk_reported_lnk")
     private WebElement reportedByMe;
 
-    @FindBy(id="searcher-query")
+    @FindBy(id = "searcher-query")
     private WebElement searchQuery;
 
     @FindBy(xpath = "//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")
@@ -76,7 +76,7 @@ public class DashBoardPage {
     }
 
 
-    public WebElement logout(){
+    public WebElement logout() {
         try {
 //            wait.until(ExpectedConditions.visibilityOf(userIcon));
             wait.until(ExpectedConditions.elementToBeClickable(userIcon));
@@ -89,7 +89,7 @@ public class DashBoardPage {
         try {
             wait.until(ExpectedConditions.visibilityOf(logoutConfirmation));
 
-        }catch (TimeoutException e){
+        } catch (TimeoutException e) {
             return null;
         }
         return logoutConfirmation;
@@ -99,7 +99,7 @@ public class DashBoardPage {
         driver.quit();
     }
 
-    public String browseProject(String projectName){
+    public String browseProject(String projectName) {
         String xpathTerm = String.format("//a[starts-with(@title,'%s')]", projectName);
         browseLink.click();
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
@@ -145,7 +145,7 @@ public class DashBoardPage {
         searchQuery.sendKeys(Keys.ENTER);
     }
 
-    public String  getIssueTypeByIssueId(String issueId) {
+    public String getIssueTypeByIssueId(String issueId) {
         String url = String.format("https://jira.codecool.codecanvas.hu/browse/%s", issueId);
         driver.get(url);
         return driver.findElement(By.id("type-val")).getText();

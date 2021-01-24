@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     parameters {
                 string(name: 'browserToRun', defaultValue: 'both', description: 'Browsers to run: Both, Chrome, Firefox')
                 string(name: 'chrome', defaultValue: 'chrome', description: 'Chrome browser')
@@ -16,7 +17,7 @@ pipeline {
             parallel {
                 stage('run with chrome') {
                     environment {
-                        STAGE_NAME='run with chrome'
+                        BROWSER="chrome"
                     }
                     when {
                          expression { params.browserToRun == 'both' || params.browserToRun == 'chrome' }
@@ -27,10 +28,10 @@ pipeline {
                                credentialsId: 'jiraUser10',
                                passwordVariable: 'pass',
                                usernameVariable: 'username')]) {
-                                    echo 'Test phase with chrome: '
+                                    echo 'WITH CHROME: '
                                     sh 'echo $STAGE_NAME'
-                                    sh 'echo $Dsel_pw'
-                                    sh "mvn test -Dtest=LoginTest -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
+                                    sh 'echo $BROWSER'
+                                    sh "mvn test -Dtest=AppTest -DJIRAUSERNAME=$username -DJIRAPASSWORD=$pass -DSEL_PW=$pass"
                                }
                          }
                     }
@@ -43,7 +44,8 @@ pipeline {
                 }
                 stage('run with firefox') {
                     environment {
-                        STAGE_NAME='run with firefox'
+                        BROWSER="firefox"
+
                     }
                     when {
                          expression { params.browserToRun == 'both' || params.browserToRun == 'firefox' }
@@ -54,9 +56,10 @@ pipeline {
                                credentialsId: 'jiraUser10',
                                passwordVariable: 'pass',
                                usernameVariable: 'username')]) {
-                                    echo 'Test phase with chrome: '
+                                    echo 'WITH FIREFOX: '
                                     sh 'echo $STAGE_NAME'
-                                    sh "mvn test -Dtest=LoginTest -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
+                                    sh 'echo $BROWSER'
+                                    sh "mvn test -Dtest=AppTest -DJIRAUSERNAME=$username -DJIRAPASSWORD=$pass -DSEL_PW=$pass"
                                }
                          }
                     }
