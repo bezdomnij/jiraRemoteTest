@@ -13,7 +13,8 @@ public class WebDriverSingleton {
 
     public static MutableCapabilities setUp() {
         MutableCapabilities capabilities;
-        if (System.getenv("BROWSER").equals("chrome")) {
+        String browser = System.getenv("BROWSER");
+        if (browser.equals("chrome")) {
             capabilities = new ChromeOptions();
         } else {
             capabilities = new FirefoxOptions();
@@ -29,9 +30,7 @@ public class WebDriverSingleton {
     public static WebDriver getInstance(){
         if (instance == null) {
             String selPw = System.getProperty("selPw");
-            String beginning = "https://selenium:";
-            String end = "@seleniumhub.codecool.codecanvas.hu/wd/hub";
-            String nodeUrl = beginning + selPw + end;
+            String nodeUrl = "https://selenium:" + selPw + "@seleniumhub.codecool.codecanvas.hu/wd/hub";
             try {
                 instance = new RemoteWebDriver(new URL(nodeUrl), setUp());
             } catch (MalformedURLException e) {
