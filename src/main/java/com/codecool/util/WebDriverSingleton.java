@@ -28,7 +28,7 @@ public class WebDriverSingleton {
 
     public static WebDriver getInstance(){
         if (instance == null) {
-            String selPw = System.getenv("SEL_PW");
+            String selPw = System.getProperty("SEL_PW");
             String beginning = "https://selenium:";
             String end = "@seleniumhub.codecool.codecanvas.hu/wd/hub";
             String nodeUrl = beginning + selPw + end;
