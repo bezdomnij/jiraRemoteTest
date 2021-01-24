@@ -16,7 +16,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 
-public class LoginPage{
+public class LoginPage {
     WebDriver driver = WebDriverSingleton.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
@@ -30,7 +30,7 @@ public class LoginPage{
     @FindBy(id = "login-form-password")
     private WebElement password;
 
-//    @FindBy(id = "login-form-submit")
+    //    @FindBy(id = "login-form-submit")
     @FindBy(id = "login")
     private WebElement loginButton;
 
@@ -50,7 +50,7 @@ public class LoginPage{
             username.sendKeys(System.getProperty("JIRAUSERNAME"));
             password.sendKeys(System.getProperty("JIRAPASSWORD"));
             loginButton.click();
-        } catch (Exception e ) {
+        } catch (Exception e) {
             System.out.println("I'm in already");
         }
 
