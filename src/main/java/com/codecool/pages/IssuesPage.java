@@ -72,13 +72,15 @@ public class IssuesPage {
 
         return id;
     }
+
     public boolean compare(String result, String project) {
-        String [] resultArray = result.split("-");
+        String[] resultArray = result.split("-");
         return resultArray[0].equals(project);
     }
+
     private String getCreatedIssueId(String text) {
         System.out.println(text);
-        String [] words = text.split(" ");
+        String[] words = text.split(" ");
         return words[1];
     }
 }
