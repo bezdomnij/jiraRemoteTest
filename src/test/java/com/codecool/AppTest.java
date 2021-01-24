@@ -35,7 +35,7 @@ public class AppTest {
         }
     }
 
-//    DashBoardPage dashBoardPage = new DashBoardPage();
+    //    DashBoardPage dashBoardPage = new DashBoardPage();
     AlternateLogin alternateLogin = new AlternateLogin();
     IssuesPage issuesPage = new IssuesPage();
     CreateIssuePage createIssuePage = new CreateIssuePage();
@@ -44,7 +44,7 @@ public class AppTest {
     }
 
     @BeforeAll
-    public static void login(){
+    public static void login() {
         loginPage.loginSuccessful();
     }
 
@@ -56,9 +56,9 @@ public class AppTest {
 
     @ParameterizedTest
     @CsvSource({"TOUCAN projekt, TOUCAN",
-                "COALA Project, COALA",
-                "JETI Project, JETI"})
-    public void testBrowseProject(String expected, String project){
+            "COALA Project, COALA",
+            "JETI Project, JETI"})
+    public void testBrowseProject(String expected, String project) {
         String projectName = dashBoardPage.browseProject(project);
         assertEquals(expected, projectName);
     }
