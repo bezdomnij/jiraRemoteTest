@@ -1,5 +1,6 @@
 pipeline {
     agent any
+
     parameters {
                 string(name: 'browserToRun', defaultValue: 'both', description: 'Browsers to run: Both, Chrome, Firefox')
                 string(name: 'chrome', defaultValue: 'chrome', description: 'Chrome browser')
@@ -18,9 +19,9 @@ pipeline {
                     environment {
                         BROWSER="chrome"
                     }
-//                     when {
-//                          expression { params.browserToRun == 'both' || params.browserToRun == 'chrome' }
-//                          }
+                    when {
+                         expression { params.browserToRun == 'both' || params.browserToRun == 'chrome' }
+                         }
                     steps {
                          script {withCredentials([
                                usernamePassword(
@@ -30,7 +31,7 @@ pipeline {
                                     echo 'WITH CHROME: '
                                     sh 'echo $STAGE_NAME'
                                     sh 'echo $BROWSER'
-                                    sh "mvn test -Dtest=LoginTest -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
+                                    sh "mvn test -Dtest=AppTest -DJIRAUSERNAME=$username -DJIRAPASSWORD=$pass -DSEL_PW=$pass"
                                }
                          }
                     }
@@ -44,10 +45,11 @@ pipeline {
                 stage('run with firefox') {
                     environment {
                         BROWSER="firefox"
+
                     }
-//                     when {
-//                          expression { params.browserToRun == 'both' || params.browserToRun == 'firefox' }
-//                          }
+                    when {
+                         expression { params.browserToRun == 'both' || params.browserToRun == 'firefox' }
+                         }
                     steps {
                          script {withCredentials([
                                usernamePassword(
@@ -57,7 +59,7 @@ pipeline {
                                     echo 'WITH FIREFOX: '
                                     sh 'echo $STAGE_NAME'
                                     sh 'echo $BROWSER'
-                                    sh "mvn test -Dtest=LoginTest -DjiraUsername=$username -DjiraPassword=$pass -Dsel_pw=$pass"
+                                    sh "mvn test -Dtest=AppTest -DJIRAUSERNAME=$username -DJIRAPASSWORD=$pass -DSEL_PW=$pass"
                                }
                          }
                     }
