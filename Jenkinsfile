@@ -31,7 +31,7 @@ pipeline {
                                     echo 'WITH CHROME: '
                                     sh 'echo $STAGE_NAME'
                                     sh 'echo $BROWSER'
-                                    sh "mvn test -Dtest=AppTest -DJIRAUSERNAME=$username -DJIRAPASSWORD=$pass -DSEL_PW=$pass"
+                                    sh "mvn test -Dtest=AppTest -jiraUsername=$username -DjiraPassword=$pass -DselPw=$pass"
                                }
                          }
                     }
@@ -59,7 +59,7 @@ pipeline {
                                     echo 'WITH FIREFOX: '
                                     sh 'echo $STAGE_NAME'
                                     sh 'echo $BROWSER'
-                                    sh "mvn test -Dtest=AppTest -DJIRAUSERNAME=$username -DJIRAPASSWORD=$pass -DSEL_PW=$pass"
+                                    sh "mvn test -Dtest=AppTest -DjiraUsername=$username -DjiraPassword=$pass -DselPw=$pass"
                                }
                          }
                     }
