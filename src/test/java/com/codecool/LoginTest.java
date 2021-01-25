@@ -56,24 +56,23 @@ public class LoginTest {
         assertTrue(isLogOutPresent && userId.equals(userName));
     }
 
-    @Test
-    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectPassword");
-        assertNotNull(loginError);
-    }
-
-    @Test
-    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
-        WebElement loginError = loginPage.loginFailed("incorrectUsername");
-        assertNotNull(loginError);
-    }
+//    @Test
+//    public void testLoginFailedWithIncorrectPassword() throws InterruptedException {
+//        WebElement loginError = loginPage.loginFailed("incorrectPassword");
+//        assertNotNull(loginError);
+//    }
+//
+//    @Test
+//    public void testLoginFailedWithIncorrectUserName() throws InterruptedException {
+//        WebElement loginError = loginPage.loginFailed("incorrectUsername");
+//        assertNotNull(loginError);
+//    }
 
     /*@Test
     public void loginWrongPassword3Times() throws InterruptedException {
         WebElement captcha = loginPage.loginWrongPassword3Times();
         assertNotNull(captcha);
     }*/
-
 
     @ParameterizedTest
     @CsvSource({"User 10"})

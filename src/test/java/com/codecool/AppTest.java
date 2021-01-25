@@ -20,7 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
 
-    static LoginPage loginPage;
+    private static LoginPage loginPage;
     private static DashBoardPage dashBoardPage;
 
     static {
