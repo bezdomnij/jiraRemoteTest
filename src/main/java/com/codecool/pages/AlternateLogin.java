@@ -14,6 +14,7 @@ public class AlternateLogin {
 //        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
     }
 
+
     WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(id = "login-form-username")
