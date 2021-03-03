@@ -69,7 +69,6 @@ public class IssuesPage {
         System.out.println(id);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
         popUpMessageClose.click();
-
         return id;
     }
 

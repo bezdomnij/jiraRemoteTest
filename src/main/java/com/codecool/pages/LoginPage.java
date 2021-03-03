@@ -47,8 +47,8 @@ public class LoginPage {
         driver.manage().window().maximize();
         try {
             wait.until(ExpectedConditions.visibilityOf(username));
-            username.sendKeys(System.getProperty("JIRAUSERNAME"));
-            password.sendKeys(System.getProperty("JIRAPASSWORD"));
+            username.sendKeys(System.getProperty("jiraUsername"));
+            password.sendKeys(System.getProperty("jiraPassword"));
             loginButton.click();
         } catch (Exception e) {
             System.out.println("I'm in already");
@@ -61,10 +61,10 @@ public class LoginPage {
         driver.manage().window().maximize();
         if (reason.equals("wrongUsername")) {
             username.sendKeys("wrongUsername");
-            password.sendKeys(System.getProperty("JIRAPASSWORD"));
+            password.sendKeys(System.getProperty("jiraPassword"));
         } else {
             Thread.sleep(3000);
-            username.sendKeys(System.getProperty("JIRAUSERNAME"));
+            username.sendKeys(System.getProperty("jiraUsername"));
             password.sendKeys("wrongPassword");
         }
         loginButton.click();
@@ -76,7 +76,7 @@ public class LoginPage {
     public WebElement loginWrongPassword3Times() throws InterruptedException {
         for (int i = 0; i < 3; i++) {
             Thread.sleep(1000);
-            username.sendKeys(System.getProperty("JIRAUSERNAME"));
+            username.sendKeys(System.getProperty("jiraUsername"));
             password.sendKeys("wrongPassword");
             loginButton.click();
         }

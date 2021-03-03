@@ -1,0 +1,7 @@
+export JIRA_USERNAME=User10
+export JIRA_PASSWORD=
+export STAGE_NAME=run with chrome
+export SEL_PW=
+
+mvn test -Dtest=LoginTest
+
