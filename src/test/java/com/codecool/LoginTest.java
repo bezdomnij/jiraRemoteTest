@@ -10,6 +10,7 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebElement;
 
+import javax.sql.DataSource;
 import java.net.MalformedURLException;
 
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -22,27 +23,13 @@ public class LoginTest {
         loginPage = new LoginPage();
     }
 
-    private static DashBoardPage dashBoardPage = null;
+    private static DashBoardPage dashBoardPage;
 
     static {
-        try {
-            dashBoardPage = new DashBoardPage();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-    }
-//    private static DashBoardPage dashBoardPage;
-
-    static {
-        try {
-            dashBoardPage = new DashBoardPage();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        dashBoardPage = new DashBoardPage();
     }
 
     private AlternateLogin alternateLogin = new AlternateLogin();
-    private CreateIssuePage createIssuePage = new CreateIssuePage();
 
     public LoginTest() throws MalformedURLException {
     }
@@ -84,7 +71,7 @@ public class LoginTest {
     }
 
     @AfterAll
-    public static void backToBase() {
+    public static void cleanUp() {
         dashBoardPage.logout();
         dashBoardPage.quit();
     }

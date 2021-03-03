@@ -16,7 +16,7 @@ public class DashBoardPage {
     WebDriver driver = WebDriverSingleton.getInstance();
     WebDriverWait wait = new WebDriverWait(driver, 5);
 
-    public DashBoardPage() throws MalformedURLException {
+    public DashBoardPage()  {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
     }
 
@@ -75,6 +75,17 @@ public class DashBoardPage {
         return viewProfilePage.getUserNameTitle();
     }
 
+    // creating simple logout page
+    public void logout2(){
+        try {
+            wait.until(ExpectedConditions.elementToBeClickable(userIcon));
+            userIcon.click();
+            logout.click();
+        } catch (Exception ee) {
+            System.out.println("not logged in?");
+        }
+    }
+
 
     public WebElement logout() {
         try {
@@ -118,8 +129,6 @@ public class DashBoardPage {
         String locator = String.format("//a[contains(text(),'%s Project')]", projectName);
         String url = String.format("https://jira.codecool.codecanvas.hu/projects/%s", urlEnds);
         driver.get(url);
-
-//        WebDriverWait wait = new WebDriverWait(driver, 3);
         wait.until(ExpectedConditions.visibilityOf(driver.findElement(By.xpath(locator))));
 
         String text = driver.findElement(By.xpath(locator)).getText();
@@ -156,7 +165,6 @@ public class DashBoardPage {
         driver.get(url);
         driver.findElement(By.id("opsbar-operations_more")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
-//        WebDriverWait wait = new WebDriverWait(driver,4);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-issue-submit")));
         driver.findElement(By.id("delete-issue-submit")).click();
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
