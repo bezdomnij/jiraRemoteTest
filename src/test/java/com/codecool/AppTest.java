@@ -23,22 +23,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class AppTest {
 
-    static LoginPage loginPage;
+    private static LoginPage loginPage;
     private static DashBoardPage dashBoardPage;
-
+    private CreateIssuePage createIssuePage = new CreateIssuePage();
     static {
         loginPage = new LoginPage();
-        try {
-            dashBoardPage = new DashBoardPage();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        dashBoardPage = new DashBoardPage();
     }
 
-//    DashBoardPage dashBoardPage = new DashBoardPage();
-    AlternateLogin alternateLogin = new AlternateLogin();
-    IssuesPage issuesPage = new IssuesPage();
-    CreateIssuePage createIssuePage = new CreateIssuePage();
+
 
     public AppTest() throws MalformedURLException {
     }
@@ -47,6 +40,7 @@ public class AppTest {
     public static void login(){
         loginPage.loginSuccessful();
     }
+
 
     @Test
     public void testLogout() {
@@ -68,6 +62,8 @@ public class AppTest {
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
     }
+
+
 
     /*@ParameterizedTest
     @CsvSource({"TOUCAN, Task",
@@ -97,17 +93,20 @@ public class AppTest {
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
     public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
-//        loginPage.loginSuccessful();
-//        dashBoardPage.getCreateIssueButton().click();
-        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
+
+        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString2");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
+        String actualProject = issueId.split("-")[0];
         dashBoardPage.deleteIssueByIssueId(issueId);
         assertEquals(issueType, actualIssueType);
+        assertEquals(project, actualProject);
     }
 
     private static List<Arguments> createListOfIssueType() {
-        List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");
-        List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");
+        List<String> issueTypes = Arrays.asList("Bug");
+        /*List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");
+        List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");*/
+        List<String> projects = Arrays.asList("COALA");
         List<Arguments> argumentsList = new ArrayList<>();
         for (String project : projects) {
             for (String type : issueTypes) {
@@ -119,7 +118,7 @@ public class AppTest {
 
     @AfterAll
     static void endGame() {
-        dashBoardPage.logout();
+        dashBoardPage.logout2();
         dashBoardPage.quit();
     }
 }

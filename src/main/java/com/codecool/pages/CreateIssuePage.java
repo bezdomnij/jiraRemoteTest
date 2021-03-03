@@ -13,7 +13,7 @@ import java.util.concurrent.TimeUnit;
 
 public class CreateIssuePage {
     WebDriver driver = WebDriverSingleton.getInstance();
-    WebDriverWait wait = new WebDriverWait(driver, 5);
+    WebDriverWait wait = new WebDriverWait(driver, 10);
     LoginPage loginPage = new LoginPage();
     private final IssuesPage issuesPage = new IssuesPage();
     private DashBoardPage dashBoardPage = new DashBoardPage();
@@ -43,15 +43,12 @@ public class CreateIssuePage {
 
 
     public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
-//        Thread.sleep(5000);
         wait.until(ExpectedConditions.elementToBeClickable(dashBoardPage.getCreateIssueButton()));
         dashBoardPage.getCreateIssueButton().click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropdown.click();
         dropdown.sendKeys(project);
         dropdown.sendKeys(Keys.TAB);
-
-//        cancel.click();
 
         try {
             wait.until(ExpectedConditions.invisibilityOf(dropDownIssue));
@@ -62,14 +59,6 @@ public class CreateIssuePage {
         dropDownIssue.click();
         dropDownIssue.sendKeys(issueType + Keys.TAB);
 
-        /*try {
-
-            wait.until(ExpectedConditions.stalenessOf(summary));
-        } catch (Exception e) {
-            System.out.println("summary exception caught");
-        }
-        wait.until(ExpectedConditions.visibilityOf(summary));*/
-
         // testing usability of other way to ignore StaleElementReferenceException
         wait.ignoring(StaleElementReferenceException.class)
                 .until(ExpectedConditions.elementToBeClickable(summary));
@@ -77,12 +66,6 @@ public class CreateIssuePage {
         summary.sendKeys(issueSummary);
         summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
-
-        try {
-            wait.until(ExpectedConditions.stalenessOf(successMessage));
-        } catch (Exception e) {
-            System.out.println("success message staleness");
-        }
         wait.until(ExpectedConditions.visibilityOf(successMessage));
         String id = getCreatedIssueId(successMessage.getText());
         System.out.println(successMessage.getText());

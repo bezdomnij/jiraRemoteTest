@@ -26,11 +26,7 @@ public class LoginTest {
     private static DashBoardPage dashBoardPage;
 
     static {
-        try {
-            dashBoardPage = new DashBoardPage();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        dashBoardPage = new DashBoardPage();
     }
 
     private AlternateLogin alternateLogin = new AlternateLogin();

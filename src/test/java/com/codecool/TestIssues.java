@@ -1,5 +1,6 @@
 package com.codecool;
 
+import com.codecool.pages.CreateIssuePage;
 import com.codecool.pages.DashBoardPage;
 import com.codecool.pages.IssuesPage;
 import com.codecool.pages.LoginPage;
@@ -29,14 +30,10 @@ public class TestIssues {
     private static DashBoardPage dashBoardPage;
 
     static {
-        try {
-            dashBoardPage = new DashBoardPage();
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
+        dashBoardPage = new DashBoardPage();
     }
 
-    //    private final CreateIssuePage createIssuePage = new CreateIssuePage();
+    private final CreateIssuePage createIssuePage = new CreateIssuePage();
     private final IssuesPage issuesPage = new IssuesPage();
 
     public TestIssues() throws MalformedURLException {
@@ -60,12 +57,18 @@ public class TestIssues {
 
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
-    public void testIssueTypeOfProject(String project, String issueType) {
-        dashBoardPage.getCreateIssueButton().click();
+    public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
+        /*dashBoardPage.getCreateIssueButton().click();
         String issueId = issuesPage.createIssue(project, issueType, "randomString");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
         dashBoardPage.deleteIssueByIssueId(issueId);
+        assertEquals(issueType, actualIssueType);*/
+        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
+        String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
+        String actualProject = issueId.split("-")[0];
+        dashBoardPage.deleteIssueByIssueId(issueId);
         assertEquals(issueType, actualIssueType);
+        assertEquals(project, actualProject);
     }
 
     private static List<Arguments> createListOfIssueType() {
