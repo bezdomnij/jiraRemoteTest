@@ -21,26 +21,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AppTest {
-
-    private static LoginPage loginPage;
-    private static DashBoardPage dashBoardPage;
-    private CreateIssuePage createIssuePage = new CreateIssuePage();
-    static {
-        loginPage = new LoginPage();
-        dashBoardPage = new DashBoardPage();
-    }
-
-
+public class AppTest extends BaseTest{
 
     public AppTest() throws MalformedURLException {
     }
-
-    @BeforeAll
-    public static void login(){
-        loginPage.loginSuccessful();
-    }
-
 
     @Test
     public void testLogout() {
@@ -94,7 +78,7 @@ public class AppTest {
     @MethodSource("createListOfIssueType")
     public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
 
-        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString2");
+        String issueId = createIssuePage.createNewIssue(project, issueType, "veryveryrandom");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
         String actualProject = issueId.split("-")[0];
         dashBoardPage.deleteIssueByIssueId(issueId);
@@ -104,9 +88,9 @@ public class AppTest {
 
     private static List<Arguments> createListOfIssueType() {
         List<String> issueTypes = Arrays.asList("Bug");
-        /*List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");
-        List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");*/
-        List<String> projects = Arrays.asList("COALA");
+        /*List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");*/
+        List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");
+        /*List<String> projects = Arrays.asList("COALA");*/
         List<Arguments> argumentsList = new ArrayList<>();
         for (String project : projects) {
             for (String type : issueTypes) {
@@ -114,11 +98,5 @@ public class AppTest {
             }
         }
         return argumentsList;
-    }
-
-    @AfterAll
-    static void endGame() {
-        dashBoardPage.logout2();
-        dashBoardPage.quit();
     }
 }
