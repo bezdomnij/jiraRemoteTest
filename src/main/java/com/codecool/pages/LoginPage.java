@@ -17,8 +17,7 @@ import java.util.concurrent.TimeoutException;
 
 
 public class LoginPage extends BasePage{
-//    WebDriver driver = WebDriverSingleton.getInstance();
-//    WebDriverWait wait = new WebDriverWait(driver, 5);
+
 
     public LoginPage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
@@ -42,10 +41,10 @@ public class LoginPage extends BasePage{
 
 
     public void loginSuccessful() {
-        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
+        driver.get(LOGINPAGE);
         driver.manage().window().maximize();
         try {
-            wait.until(ExpectedConditions.visibilityOf(username));
+            waitForVisibility(username);
             username.sendKeys(System.getProperty("jiraUsername"));
             password.sendKeys(System.getProperty("jiraPassword"));
             loginButton.click();
@@ -56,7 +55,7 @@ public class LoginPage extends BasePage{
     }
 
     public WebElement loginFailed(String reason) throws InterruptedException {
-        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
+        driver.get(LOGINPAGE);
         driver.manage().window().maximize();
         if (reason.equals("wrongUsername")) {
             username.sendKeys("wrongUsername");
@@ -67,8 +66,7 @@ public class LoginPage extends BasePage{
             password.sendKeys("wrongPassword");
         }
         loginButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOf(loginError));
+        waitForVisibility(loginError);
         return loginError;
     }
 
@@ -79,8 +77,7 @@ public class LoginPage extends BasePage{
             password.sendKeys("wrongPassword");
             loginButton.click();
         }
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOf(captcha));
+        waitForVisibility(captcha);
         return captcha;
     }
 }
