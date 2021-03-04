@@ -1,7 +1,9 @@
 package com.codecool.pages;
 
-import com.codecool.util.WebDriverSingleton;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
@@ -9,12 +11,11 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
-import java.util.NoSuchElementException;
 import java.util.concurrent.TimeUnit;
 
-public class DashBoardPage {
-    WebDriver driver = WebDriverSingleton.getInstance();
-    WebDriverWait wait = new WebDriverWait(driver, 5);
+public class DashBoardPage extends BasePage {
+//    WebDriver driver = WebDriverSingleton.getInstance();
+//    WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public DashBoardPage()  {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 4), this);
@@ -61,7 +62,7 @@ public class DashBoardPage {
     }
 
     public boolean checkLogout() {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
+//        WebDriverWait wait = new WebDriverWait(driver, 5);
         wait.until(ExpectedConditions.visibilityOf(userIcon));
         userIcon.click();
         return logout.isDisplayed();
@@ -99,10 +100,10 @@ public class DashBoardPage {
 
         try {
             wait.until(ExpectedConditions.visibilityOf(logoutConfirmation));
-
         } catch (TimeoutException e) {
             return null;
         }
+
         return logoutConfirmation;
     }
 

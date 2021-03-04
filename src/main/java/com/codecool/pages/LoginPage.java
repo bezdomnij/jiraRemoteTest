@@ -16,9 +16,9 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.TimeoutException;
 
 
-public class LoginPage {
-    WebDriver driver = WebDriverSingleton.getInstance();
-    WebDriverWait wait = new WebDriverWait(driver, 5);
+public class LoginPage extends BasePage{
+//    WebDriver driver = WebDriverSingleton.getInstance();
+//    WebDriverWait wait = new WebDriverWait(driver, 5);
 
     public LoginPage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
@@ -42,7 +42,6 @@ public class LoginPage {
 
 
     public void loginSuccessful() {
-
         driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
         driver.manage().window().maximize();
         try {

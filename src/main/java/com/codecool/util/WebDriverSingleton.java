@@ -14,6 +14,7 @@ public class WebDriverSingleton {
     public static MutableCapabilities setUp() {
         MutableCapabilities capabilities;
         String browser = System.getenv("BROWSER");
+        System.out.println(browser);
         if (browser.equals("chrome")) {
             capabilities = new ChromeOptions();
         } else {

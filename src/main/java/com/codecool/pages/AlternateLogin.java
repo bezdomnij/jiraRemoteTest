@@ -1,21 +1,19 @@
 package com.codecool.pages;
 
-import com.codecool.util.WebDriverSingleton;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
 import java.net.MalformedURLException;
 
-public class AlternateLogin {
+public class AlternateLogin extends BasePage {
     public AlternateLogin() throws MalformedURLException {
         PageFactory.initElements(driver, this);
 //        driver.navigate().to("https://jira.codecool.codecanvas.hu/login.jsp");
     }
 
 
-    WebDriver driver = WebDriverSingleton.getInstance();
+//    WebDriver driver = WebDriverSingleton.getInstance();
 
     @FindBy(id = "login-form-username")
     private WebElement username;

@@ -1,19 +1,20 @@
 package com.codecool.pages;
 
-import com.codecool.util.WebDriverSingleton;
-import org.openqa.selenium.*;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
+import org.openqa.selenium.StaleElementReferenceException;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
-public class CreateIssuePage {
-    WebDriver driver = WebDriverSingleton.getInstance();
-    WebDriverWait wait = new WebDriverWait(driver, 10);
+public class CreateIssuePage extends BasePage {
+//    WebDriver driver = WebDriverSingleton.getInstance();
+//    WebDriverWait wait = new WebDriverWait(driver, 10);
     LoginPage loginPage = new LoginPage();
     private final IssuesPage issuesPage = new IssuesPage();
     private DashBoardPage dashBoardPage = new DashBoardPage();

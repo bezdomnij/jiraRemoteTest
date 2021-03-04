@@ -1,9 +1,6 @@
 package com.codecool;
 
-import com.codecool.pages.*;
-import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
@@ -18,25 +15,10 @@ import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class AppTest {
-
-    private static LoginPage loginPage;
-    private static DashBoardPage dashBoardPage;
-    private CreateIssuePage createIssuePage = new CreateIssuePage();
-    static {
-        loginPage = new LoginPage();
-        dashBoardPage = new DashBoardPage();
-    }
-
+public class AppTest extends BaseTest{
 
     public AppTest() throws MalformedURLException {
     }
-
-    @BeforeAll
-    public static void login() {
-        loginPage.loginSuccessful();
-    }
-
 
     @Test
     public void testLogout() {
@@ -46,9 +28,9 @@ public class AppTest {
 
     @ParameterizedTest
     @CsvSource({"TOUCAN projekt, TOUCAN",
-            "COALA Project, COALA",
-            "JETI Project, JETI"})
-    public void testBrowseProject(String expected, String project) {
+                "COALA Project, COALA",
+                "JETI Project, JETI"})
+    public void testBrowseProject(String expected, String project){
         String projectName = dashBoardPage.browseProject(project);
         assertEquals(expected, projectName);
     }
@@ -90,7 +72,7 @@ public class AppTest {
     @MethodSource("createListOfIssueType")
     public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
 
-        String issueId = createIssuePage.createNewIssue(project, issueType, "randomString2");
+        String issueId = createIssuePage.createNewIssue(project, issueType, "veryveryrandom");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
         String actualProject = issueId.split("-")[0];
         dashBoardPage.deleteIssueByIssueId(issueId);
@@ -100,9 +82,9 @@ public class AppTest {
 
     private static List<Arguments> createListOfIssueType() {
         List<String> issueTypes = Arrays.asList("Bug");
-        /*List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");
-        List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");*/
-        List<String> projects = Arrays.asList("COALA");
+        /*List<String> issueTypes = Arrays.asList("Bug", "Task", "Story", "Improvement");*/
+        List<String> projects = Arrays.asList("COALA", "JETI", "TOUCAN");
+        /*List<String> projects = Arrays.asList("COALA");*/
         List<Arguments> argumentsList = new ArrayList<>();
         for (String project : projects) {
             for (String type : issueTypes) {
@@ -110,11 +92,5 @@ public class AppTest {
             }
         }
         return argumentsList;
-    }
-
-    @AfterAll
-    static void endGame() {
-        dashBoardPage.logout2();
-        dashBoardPage.quit();
     }
 }
