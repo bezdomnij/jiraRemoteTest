@@ -10,12 +10,22 @@ public class BasePage {
     protected WebDriver driver = WebDriverSingleton.getInstance();
     protected WebDriverWait wait = new WebDriverWait(driver, 5);
 
-    protected final String LOGINPAGE = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";
-    protected final String VIEWPROFILEPAGE ="https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa";
-    protected final String BROWSEPAGE = "https://jira.codecool.codecanvas.hu/browse/";
+    protected final String LOGIN_PAGE = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";
+    protected final String VIEW_PROFILE_PAGE ="https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa";
+    protected final String BROWSE_PAGE = "https://jira.codecool.codecanvas.hu/browse/";
 
     protected void waitForVisibility(WebElement webElement){
         wait.until(ExpectedConditions.visibilityOf(webElement));
+    }
+
+    protected void maximizeWindow(){
+        driver.manage().window().maximize();
+    }
+
+    protected void happyLogin(WebElement username, WebElement password, WebElement loginButton) {
+        username.sendKeys(System.getProperty("jiraUsername"));
+        password.sendKeys(System.getProperty("jiraPassword"));
+        loginButton.click();
     }
 
 }

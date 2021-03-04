@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
@@ -152,13 +151,13 @@ public class DashBoardPage extends BasePage {
     }
 
     public String getIssueTypeByIssueId(String issueId) {
-        String url = String.format(BROWSEPAGE+"%s", issueId);
+        String url = String.format(BROWSE_PAGE +"%s", issueId);
         driver.get(url);
         return driver.findElement(By.id("type-val")).getText();
     }
 
     public void deleteIssueByIssueId(String issueId) {
-        String url = String.format(BROWSEPAGE+"%s", issueId);
+        String url = String.format(BROWSE_PAGE +"%s", issueId);
         driver.get(url);
         driver.findElement(By.id("opsbar-operations_more")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();

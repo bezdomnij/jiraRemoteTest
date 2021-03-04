@@ -10,8 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.net.MalformedURLException;
 
 public class IssuesPage extends BasePage {
-//    WebDriver driver = WebDriverSingleton.getInstance();
-//    WebDriverWait wait = new WebDriverWait(driver, 3);
 
     @FindBy(xpath = "//a[@id=\"create_link\"]")
     private WebElement createButton;

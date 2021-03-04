@@ -8,7 +8,7 @@ public class ViewProfilePage extends BasePage {
 
     public ViewProfilePage() {
         PageFactory.initElements(driver, this);
-        driver.navigate().to(VIEWPROFILEPAGE);
+        driver.navigate().to(VIEW_PROFILE_PAGE);
     }
 
     @FindBy(id = "up-user-title-name")
