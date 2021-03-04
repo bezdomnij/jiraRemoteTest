@@ -12,6 +12,7 @@ public class BaseTest {
     protected static LoginPage loginPage;
     protected static DashBoardPage dashBoardPage;
     protected CreateIssuePage createIssuePage = new CreateIssuePage();
+
     static {
         loginPage = new LoginPage();
         dashBoardPage = new DashBoardPage();
@@ -26,7 +27,7 @@ public class BaseTest {
     }
 
     @AfterAll
-    static void endGame() {
+    static void cleanUp() {
         dashBoardPage.logout2();
         dashBoardPage.quit();
     }
