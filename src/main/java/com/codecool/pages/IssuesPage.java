@@ -10,8 +10,6 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import java.net.MalformedURLException;
 
 public class IssuesPage extends BasePage {
-//    WebDriver driver = WebDriverSingleton.getInstance();
-//    WebDriverWait wait = new WebDriverWait(driver, 3);
 
     @FindBy(xpath = "//a[@id=\"create_link\"]")
     private WebElement createButton;
@@ -59,7 +57,8 @@ public class IssuesPage extends BasePage {
         } catch (Exception e) {
             System.out.println("success message not stale");
         }
-        wait.until(ExpectedConditions.visibilityOf(successMessage));
+        //wait.until(ExpectedConditions.visibilityOf(successMessage));
+        waitForVisibility(successMessage);
         String id = getCreatedIssueId(successMessage.getText());
         System.out.println(successMessage.getText());
         System.out.println(id);

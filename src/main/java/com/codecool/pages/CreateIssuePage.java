@@ -13,8 +13,6 @@ import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
 
 public class CreateIssuePage extends BasePage {
-//    WebDriver driver = WebDriverSingleton.getInstance();
-//    WebDriverWait wait = new WebDriverWait(driver, 10);
     LoginPage loginPage = new LoginPage();
     private final IssuesPage issuesPage = new IssuesPage();
     private DashBoardPage dashBoardPage = new DashBoardPage();
@@ -52,22 +50,21 @@ public class CreateIssuePage extends BasePage {
         dropdown.sendKeys(Keys.TAB);
 
         try {
-            wait.until(ExpectedConditions.invisibilityOf(dropDownIssue));
+            waitForVisibility(dropDownIssue);
         } catch (Exception e) {
             System.out.println("dropdown issue exception caught");
         }
-        wait.until(ExpectedConditions.visibilityOf(dropDownIssue));
+        waitForVisibility(dropDownIssue);
         dropDownIssue.click();
         dropDownIssue.sendKeys(issueType + Keys.TAB);
 
-        // testing usability of other way to ignore StaleElementReferenceException
         wait.ignoring(StaleElementReferenceException.class)
                 .until(ExpectedConditions.elementToBeClickable(summary));
         summary.click();
         summary.sendKeys(issueSummary);
         summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
-        wait.until(ExpectedConditions.visibilityOf(successMessage));
+        waitForVisibility(successMessage);
         String id = getCreatedIssueId(successMessage.getText());
         System.out.println(successMessage.getText());
         System.out.println(id);

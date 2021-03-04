@@ -8,7 +8,6 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.net.MalformedURLException;
 import java.util.concurrent.TimeUnit;
@@ -62,15 +61,13 @@ public class DashBoardPage extends BasePage {
     }
 
     public boolean checkLogout() {
-//        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.visibilityOf(userIcon));
+        waitForVisibility(userIcon);
         userIcon.click();
         return logout.isDisplayed();
     }
 
     public String checkUserName() throws MalformedURLException {
-        WebDriverWait wait = new WebDriverWait(driver, 5);
-        wait.until(ExpectedConditions.visibilityOf(userIcon));
+        waitForVisibility(userIcon);
         userIcon.click();
         ViewProfilePage viewProfilePage = new ViewProfilePage();
         return viewProfilePage.getUserNameTitle();
@@ -79,7 +76,7 @@ public class DashBoardPage extends BasePage {
     // creating simple logout page
     public void logout2(){
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(userIcon));
+            waitForVisibility(userIcon);
             userIcon.click();
             logout.click();
         } catch (Exception ee) {
@@ -90,7 +87,6 @@ public class DashBoardPage extends BasePage {
 
     public WebElement logout() {
         try {
-//            wait.until(ExpectedConditions.visibilityOf(userIcon));
             wait.until(ExpectedConditions.elementToBeClickable(userIcon));
             userIcon.click();
             logout.click();
@@ -99,7 +95,7 @@ public class DashBoardPage extends BasePage {
         }
 
         try {
-            wait.until(ExpectedConditions.visibilityOf(logoutConfirmation));
+            waitForVisibility(logoutConfirmation);
         } catch (TimeoutException e) {
             return null;
         }
@@ -120,7 +116,6 @@ public class DashBoardPage extends BasePage {
         driver.manage().timeouts().implicitlyWait(4, TimeUnit.SECONDS);
         driver.findElement(By.xpath(xpathTerm)).click();
         String checkIconXpath = String.format("//img[starts-with(@alt, '%s')]", projectName);
-        WebDriverWait wait = new WebDriverWait(driver, 10);
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath(checkIconXpath)));
         WebElement icon = driver.findElement(By.xpath(checkIconXpath));
         return icon.getAttribute("alt");
@@ -156,13 +151,13 @@ public class DashBoardPage extends BasePage {
     }
 
     public String getIssueTypeByIssueId(String issueId) {
-        String url = String.format("https://jira.codecool.codecanvas.hu/browse/%s", issueId);
+        String url = String.format(BROWSE_PAGE +"%s", issueId);
         driver.get(url);
         return driver.findElement(By.id("type-val")).getText();
     }
 
     public void deleteIssueByIssueId(String issueId) {
-        String url = String.format("https://jira.codecool.codecanvas.hu/browse/%s", issueId);
+        String url = String.format(BROWSE_PAGE +"%s", issueId);
         driver.get(url);
         driver.findElement(By.id("opsbar-operations_more")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();

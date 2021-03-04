@@ -1,24 +1,13 @@
 package com.codecool.pages;
 
-import com.codecool.util.WebDriverSingleton;
-import org.junit.jupiter.api.Test;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
-
-import java.net.MalformedURLException;
-import java.util.concurrent.TimeUnit;
-import java.util.concurrent.TimeoutException;
 
 
 public class LoginPage extends BasePage{
-//    WebDriver driver = WebDriverSingleton.getInstance();
-//    WebDriverWait wait = new WebDriverWait(driver, 5);
+
 
     public LoginPage() {
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 20), this);
@@ -42,21 +31,21 @@ public class LoginPage extends BasePage{
 
 
     public void loginSuccessful() {
-        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
-        driver.manage().window().maximize();
+        driver.get(LOGIN_PAGE);
+        maximizeWindow();
         try {
-            wait.until(ExpectedConditions.visibilityOf(username));
-            username.sendKeys(System.getProperty("jiraUsername"));
-            password.sendKeys(System.getProperty("jiraPassword"));
-            loginButton.click();
+            waitForVisibility(username);
+            happyLogin(username,password,loginButton);
         } catch (Exception e) {
             System.out.println("I'm in already");
         }
 
     }
 
+
+
     public WebElement loginFailed(String reason) throws InterruptedException {
-        driver.get("https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa");
+        driver.get(LOGIN_PAGE);
         driver.manage().window().maximize();
         if (reason.equals("wrongUsername")) {
             username.sendKeys("wrongUsername");
@@ -67,8 +56,7 @@ public class LoginPage extends BasePage{
             password.sendKeys("wrongPassword");
         }
         loginButton.click();
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOf(loginError));
+        waitForVisibility(loginError);
         return loginError;
     }
 
@@ -79,8 +67,7 @@ public class LoginPage extends BasePage{
             password.sendKeys("wrongPassword");
             loginButton.click();
         }
-        WebDriverWait wait = new WebDriverWait(driver, 10);
-        wait.until(ExpectedConditions.visibilityOf(captcha));
+        waitForVisibility(captcha);
         return captcha;
     }
 }
