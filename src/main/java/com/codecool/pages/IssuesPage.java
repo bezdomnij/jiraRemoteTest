@@ -34,8 +34,7 @@ public class IssuesPage extends BasePage {
     }
 
     public String createIssue(String project, String issueType, String text) {
-
-        wait.until(ExpectedConditions.elementToBeClickable(projectInputField));
+        waitForClickable(projectInputField);
         projectInputField.click(); // clear field
         projectInputField.sendKeys(project + Keys.ENTER);
 
@@ -44,11 +43,10 @@ public class IssuesPage extends BasePage {
         } catch (Exception e) {
             System.out.println("TypeInputField not invisible");
         }
-        wait.until(ExpectedConditions.elementToBeClickable(typeInputField));
+        waitForClickable(typeInputField);
         typeInputField.click();
         typeInputField.sendKeys(issueType + Keys.TAB);
-
-        wait.until(ExpectedConditions.elementToBeClickable(summaryField));
+        waitForClickable(summaryField);
         summaryField.click();
         summaryField.sendKeys(text + Keys.ENTER);
 
@@ -57,11 +55,8 @@ public class IssuesPage extends BasePage {
         } catch (Exception e) {
             System.out.println("success message not stale");
         }
-        //wait.until(ExpectedConditions.visibilityOf(successMessage));
         waitForVisibility(successMessage);
         String id = getCreatedIssueId(successMessage.getText());
-        System.out.println(successMessage.getText());
-        System.out.println(id);
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
         popUpMessageClose.click();
         return id;

@@ -18,6 +18,10 @@ public class BasePage {
         wait.until(ExpectedConditions.visibilityOf(webElement));
     }
 
+    protected void waitForClickable(WebElement webElement){
+        wait.until(ExpectedConditions.elementToBeClickable(webElement));
+    }
+
     protected void maximizeWindow(){
         driver.manage().window().maximize();
     }
@@ -27,5 +31,7 @@ public class BasePage {
         password.sendKeys(System.getProperty("jiraPassword"));
         loginButton.click();
     }
+
+
 
 }

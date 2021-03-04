@@ -87,7 +87,8 @@ public class DashBoardPage extends BasePage {
 
     public WebElement logout() {
         try {
-            wait.until(ExpectedConditions.elementToBeClickable(userIcon));
+            //wait.until(ExpectedConditions.elementToBeClickable(userIcon));
+            waitForClickable(userIcon);
             userIcon.click();
             logout.click();
         } catch (Exception ee) {

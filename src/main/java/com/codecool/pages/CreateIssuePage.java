@@ -41,8 +41,8 @@ public class CreateIssuePage extends BasePage {
     private WebElement cancel;
 
 
-    public String createNewIssue(String project, String issueType, String issueSummary) throws InterruptedException {
-        wait.until(ExpectedConditions.elementToBeClickable(dashBoardPage.getCreateIssueButton()));
+    public String createNewIssue(String project, String issueType, String issueSummary) {
+        waitForClickable(dashBoardPage.getCreateIssueButton());
         dashBoardPage.getCreateIssueButton().click();
         driver.manage().timeouts().implicitlyWait(10, TimeUnit.SECONDS);
         dropdown.click();
@@ -65,11 +65,7 @@ public class CreateIssuePage extends BasePage {
         summary.sendKeys(Keys.TAB);
         summary.sendKeys(Keys.ENTER);
         waitForVisibility(successMessage);
-        String id = getCreatedIssueId(successMessage.getText());
-        System.out.println(successMessage.getText());
-        System.out.println(id);
-
-        return id;
+        return getCreatedIssueId(successMessage.getText());
     }
 
     private String getCreatedIssueId(String text) {
