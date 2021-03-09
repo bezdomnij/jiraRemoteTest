@@ -58,11 +58,6 @@ public class TestIssues {
     @ParameterizedTest
     @MethodSource("createListOfIssueType")
     public void testIssueTypeOfProject(String project, String issueType) throws InterruptedException {
-        /*dashBoardPage.getCreateIssueButton().click();
-        String issueId = issuesPage.createIssue(project, issueType, "randomString");
-        String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
-        dashBoardPage.deleteIssueByIssueId(issueId);
-        assertEquals(issueType, actualIssueType);*/
         String issueId = createIssuePage.createNewIssue(project, issueType, "randomString");
         String actualIssueType = dashBoardPage.getIssueTypeByIssueId(issueId);
         String actualProject = issueId.split("-")[0];
