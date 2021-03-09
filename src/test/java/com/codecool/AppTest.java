@@ -35,11 +35,11 @@ public class AppTest extends BaseTest{
         assertEquals(expected, projectName);
     }
 
-    @Test
+    /*@Test
     public void searchProject() {
         String actualProject = dashBoardPage.searchProject("Main Testing", "MTP");
         assertEquals("Main Testing Project", actualProject);
-    }
+    }*/
 
 
 
