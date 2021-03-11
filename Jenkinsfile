@@ -13,6 +13,7 @@ pipeline {
             }
         }
         
+        
         stage('Parallel tests') {
             parallel {
                 stage('run with chrome') {
