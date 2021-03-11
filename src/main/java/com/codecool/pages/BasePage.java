@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class BasePage {
     protected WebDriver driver = WebDriverSingleton.getInstance();
-    protected WebDriverWait wait = new WebDriverWait(driver, 5);
+    protected WebDriverWait wait = new WebDriverWait(driver, 10);
 
     protected final String LOGIN_PAGE = "https://jira.codecool.codecanvas.hu/secure/Dashboard.jspa";
     protected final String VIEW_PROFILE_PAGE ="https://jira.codecool.codecanvas.hu/secure/ViewProfile.jspa";

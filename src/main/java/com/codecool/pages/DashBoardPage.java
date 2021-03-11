@@ -161,8 +161,10 @@ public class DashBoardPage extends BasePage {
         driver.get(url);
         driver.findElement(By.id("opsbar-operations_more")).click();
         driver.findElement(By.xpath("//span[contains(text(),'Delete')]")).click();
+
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("delete-issue-submit")));
         driver.findElement(By.id("delete-issue-submit")).click();
+
         wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")));
         driver.findElement(By.xpath("//div[@id=\"aui-flag-container\"]//span[contains(@class,'icon-close')]")).click();
     }
