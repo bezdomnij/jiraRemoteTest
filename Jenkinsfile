@@ -12,8 +12,7 @@ pipeline {
                 sh 'mvn clean'
             }
         }
-        
-       
+               
         stage('Parallel tests') {
             parallel {
                 stage('run with chrome') {
