@@ -7,7 +7,7 @@ pipeline {
                 string(name: 'firefox', defaultValue: 'firefox', description: 'Firefox browser')
     }
 
-    
+   
     stages {
         stage('Build') {
             steps {
@@ -54,6 +54,7 @@ pipeline {
                     when {
                          expression { params.browserToRun == 'both' || params.browserToRun == 'firefox' }
                          }
+                    
                     steps {
                          script {withCredentials([
                                usernamePassword(
