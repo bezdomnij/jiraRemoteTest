@@ -6,6 +6,7 @@ pipeline {
                 string(name: 'chrome', defaultValue: 'chrome', description: 'Chrome browser')
                 string(name: 'firefox', defaultValue: 'firefox', description: 'Firefox browser')
     }
+    
     stages {
         stage('Build') {
             steps {
